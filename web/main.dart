@@ -3,9 +3,11 @@
 
 import 'dart:html';
 import 'SteamSaleServer.dart';
+import 'SaleManager.dart';
 
 void main() {
   querySelector('#output').text = 'Your Dart app is running.';
-  SteamSaleServer steamSaleServer = new SteamSaleServer();
-  steamSaleServer.getSteamAppIDs();
+  SaleManager saleManager = new SaleManager();
+  saleManager.getAllGames();
+  saleManager.printAllGames();
 }

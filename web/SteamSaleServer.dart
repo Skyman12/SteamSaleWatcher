@@ -12,7 +12,7 @@ class SteamSaleServer {
   /// of the game
   Future<Map<int, String>> getSteamAppIDs() async {
     Map<int, String> map = new Map();
-    // URL to get the summoner data associated with the summonerName
+
      var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getSteamAppIDs";
 
     // call the web server
@@ -26,8 +26,28 @@ class SteamSaleServer {
     return map;
   }
 
+  Future<Map<String, String>> getSteamSaleInformation(int appid) async {
+    print(appid.toString());
+    Map<int, String> map = new Map();
+
+    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getSteamSaleInformation&appid=" + appid.toString();
+
+    // call the web server
+    Map data = await HttpRequest.getString(appIDsURL).then(onDataLoaded);
+
+    if (data != null && data[appid.toString()]["success"] == "true") {
+      return data[appid.toString()]["data"]["price_overview"];
+    }
+
+    return {"xxx" : "false"};
+  }
+
   Map onDataLoaded(String responseText) {
     var jsonString = responseText;
-    return JSON.decode(jsonString);
+    try {
+      return JSON.decode(jsonString);
+    } catch(Exception) {
+      return null;
+    }
   }
 }
