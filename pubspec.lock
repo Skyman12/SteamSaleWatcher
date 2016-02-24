@@ -13,6 +13,10 @@ packages:
     description: barback
     source: hosted
     version: "0.15.2+7"
+  bootstrap:
+    description: bootstrap
+    source: hosted
+    version: "3.3.4"
   browser:
     description: browser
     source: hosted
@@ -33,6 +37,10 @@ packages:
     description: html
     source: hosted
     version: "0.12.2+1"
+  html5lib:
+    description: html5lib
+    source: hosted
+    version: "0.12.1"
   logging:
     description: logging
     source: hosted
