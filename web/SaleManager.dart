@@ -19,13 +19,17 @@ class SaleManager {
     Map<int, String> games = await server.getSteamAppIDs();
 
     for (int id in games.keys) {
-        Map<String, String> saleData = await server.getSteamSaleInformation(id);
+        Map<String, int> saleData = await server.getSteamSaleInformation(id);
+
+        print(saleData);
 
         if (saleData != null && !saleData.containsKey("xxx")) {
-          _allGames[games[id]] = int.parse(saleData['discount_percent']);
+          print(saleData['discount_percent']);
+          _allGames[games[id]] = saleData['discount_percent'];
         }
     }
 
+    printAllGames();
     return true;
   }
 

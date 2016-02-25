@@ -26,7 +26,7 @@ class SteamSaleServer {
     return map;
   }
 
-  Future<Map<String, String>> getSteamSaleInformation(int appid) async {
+  Future<Map<String, int>> getSteamSaleInformation(int appid) async {
     print(appid.toString());
     Map<int, String> map = new Map();
 
@@ -35,11 +35,12 @@ class SteamSaleServer {
     // call the web server
     Map data = await HttpRequest.getString(appIDsURL).then(onDataLoaded);
 
-    if (data != null && data[appid.toString()]["success"] == "true") {
+    try {
       return data[appid.toString()]["data"]["price_overview"];
     }
-
-    return {"xxx" : "false"};
+    catch (Exception) {
+      return {"xxx" : "false"};
+    }
   }
 
   Map onDataLoaded(String responseText) {
