@@ -8,47 +8,28 @@ class SteamSaleServer {
   SteamSaleServer() {
 
   }
-  /// Returns all steam games. They are stored in a Map, with the key being the appid and the value being the name
-  /// of the game
-  Future<Map<int, String>> getSteamAppIDs() async {
-    Map<int, String> map = new Map();
 
-     var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getSteamAppIDs";
+  Future<Map<String, int>> getCurrentGameData() async {
+    Map<String, int> map = new Map();
 
-    // call the web server
-    Map data = await HttpRequest.getString(appIDsURL).then(onDataLoaded);
-
-    // From the data, build a map with the keys being the appid and the values being the name of the game
-    for (Map m in data["applist"]["apps"]) {
-      map[m["appid"]] = m["name"];
-    }
-
-    return map;
-  }
-
-  Future<Map<String, int>> getSteamSaleInformation(int appid) async {
-    print(appid.toString());
-    Map<int, String> map = new Map();
-
-    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getSteamSaleInformation&appid=" + appid.toString();
+    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getCurrentData";
 
     // call the web server
-    Map data = await HttpRequest.getString(appIDsURL).then(onDataLoaded);
+    Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
 
-    try {
-      return data[appid.toString()]["data"]["price_overview"];
-    }
-    catch (Exception) {
-      return {"xxx" : "false"};
-    }
+    return data;
   }
 
-  Map onDataLoaded(String responseText) {
+  updateGameList() async {
+    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=buildSteamSaleInformation";
+
+    // call the web server
+    await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
+  }
+
+  Map _onDataLoaded(String responseText) {
     var jsonString = responseText;
-    try {
-      return JSON.decode(jsonString);
-    } catch(Exception) {
-      return null;
-    }
+    return JSON.decode(jsonString);
   }
+
 }

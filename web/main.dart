@@ -3,10 +3,28 @@
 
 import 'dart:html';
 import 'SteamSaleServer.dart';
-import 'SaleManager.dart';
 
-void main() {
+main() async {
   querySelector('#output').text = 'Your Dart app is running.';
-  SaleManager saleManager = new SaleManager();
-  saleManager.getAllGames();
+  SteamSaleServer server = new SteamSaleServer();
+  server.updateGameList();
+  Map<String, int> games = await server.getCurrentGameData();
+
+  Map<String, int> onSaleGames = getOnSaleGames(games);
+
+  for (String k in onSaleGames.keys) {
+   print(k + " -Discount: " + onSaleGames[k].toString() + "\n");
+  }
+}
+
+Map<String, int> getOnSaleGames(Map<String, int> gameMap) {
+  Map<String, int> onSaleGames = new Map();
+
+  for (String k in gameMap.keys) {
+    if (gameMap[k] != 0) {
+      onSaleGames[k] = gameMap[k];
+    }
+  }
+
+  return onSaleGames;
 }
