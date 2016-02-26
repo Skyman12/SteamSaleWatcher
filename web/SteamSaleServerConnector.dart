@@ -53,6 +53,8 @@ class SteamSaleServer {
       User user = new User(m["username"], m["password"], m["email"]);
       list.add(user);
     }
+
+    return list;
   }
 
 }
