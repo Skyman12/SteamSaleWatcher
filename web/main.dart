@@ -3,18 +3,27 @@
 
 import 'dart:html';
 import 'SteamSaleServerConnector.dart';
+import 'User.dart';
 
 main() async {
   querySelector('#output').text = 'Your Dart app is running.';
   SteamSaleServer server = new SteamSaleServer();
-  //server.updateGameList();
-  Map<String, int> games = await server.getCurrentGameData();
 
-  Map<String, int> onSaleGames = getOnSaleGames(games);
+  User blake = new User("skyman", "test" , "skyman@iastate.edu");
+  //server.addUserToDatabase(blake);
+//
+//  Map<String, int> games = await server.getCurrentGameData();
+//
+//  Map<String, int> onSaleGames = getOnSaleGames(games);
+//
+//  for (String k in onSaleGames.keys) {
+//   print(k + " -Discount: " + onSaleGames[k].toString());
+//  }
 
-  for (String k in onSaleGames.keys) {
-   print(k + " -Discount: " + onSaleGames[k].toString() + "\n");
-  }
+    List<User> users = await server.getAllUsers();
+    for (User u in users) {
+      print(u.toString());
+    }
 }
 
 Map<String, int> getOnSaleGames(Map<String, int> gameMap) {
