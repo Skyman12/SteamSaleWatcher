@@ -4,36 +4,19 @@
 import 'dart:html';
 import 'SteamSaleServerConnector.dart';
 import 'User.dart';
+import 'SteamGame.dart';
+import 'SteamGameSorter.dart';
 
 main() async {
   querySelector('#output').text = 'Your Dart app is running.';
   SteamSaleServer server = new SteamSaleServer();
 
-  User blake = new User("skyman", "test" , "skyman@iastate.edu");
-  //server.addUserToDatabase(blake);
-//
-//  Map<String, int> games = await server.getCurrentGameData();
-//
-//  Map<String, int> onSaleGames = getOnSaleGames(games);
-//
-//  for (String k in onSaleGames.keys) {
-//   print(k + " -Discount: " + onSaleGames[k].toString());
-//  }
+  Map<String, SteamGame> onSaleGames = await server.getOnSaleGames();
 
-    List<User> users = await server.getAllUsers();
-    for (User u in users) {
-      print(u.toString());
-    }
-}
+  List<SteamGame> onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
 
-Map<String, int> getOnSaleGames(Map<String, int> gameMap) {
-  Map<String, int> onSaleGames = new Map();
-
-  for (String k in gameMap.keys) {
-    if (gameMap[k] != 0) {
-      onSaleGames[k] = gameMap[k];
-    }
+  for (SteamGame game in onSaleList) {
+    print(game.getName() + " -Discount: " + game.getDiscountPercent().toString()
+    + " -Intial: " + game.getInitialPrice().toString() + " -Final: " + game.getFinalPrice().toString());
   }
-
-  return onSaleGames;
 }
