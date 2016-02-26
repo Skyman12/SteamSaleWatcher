@@ -2,12 +2,12 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'dart:html';
-import 'SteamSaleServer.dart';
+import 'SteamSaleServerConnector.dart';
 
 main() async {
   querySelector('#output').text = 'Your Dart app is running.';
   SteamSaleServer server = new SteamSaleServer();
-  server.updateGameList();
+  //server.updateGameList();
   Map<String, int> games = await server.getCurrentGameData();
 
   Map<String, int> onSaleGames = getOnSaleGames(games);

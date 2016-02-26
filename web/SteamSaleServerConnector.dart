@@ -12,7 +12,7 @@ class SteamSaleServer {
   Future<Map<String, int>> getCurrentGameData() async {
     Map<String, int> map = new Map();
 
-    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=getCurrentData";
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=getCurrentData";
 
     // call the web server
     Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
@@ -21,7 +21,7 @@ class SteamSaleServer {
   }
 
   updateGameList() async {
-    var appIDsURL = "http://localhost:8081/SteamSaleWatcherServer/SimpleSteamSaleServer.php?action=buildSteamSaleInformation";
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=buildSteamSaleInformation";
 
     // call the web server
     await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
