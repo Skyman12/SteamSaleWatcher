@@ -1,20 +1,26 @@
 import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
+import 'SteamSaleServerConnector.dart';
+import 'SteamGame.dart';
 
 class User {
 
   Map<String, String> _informationMap;
-  Map<String, int> _gamesMap;
+  SteamSaleServerConnector _server;
 
   User(String username, String password, String email) {
+    _server = new SteamSaleServerConnector();
     _informationMap = new Map();
 
     _informationMap["username"] = username;
     _informationMap["password"] = password;
     _informationMap["email"] = email;
+    _addUser();
+  }
 
-    _gamesMap = new Map();
+  void _addUser() {
+    _server.addUserToDatabase(this);
   }
 
   String getUsername() {
@@ -29,19 +35,23 @@ class User {
     return _informationMap["password"];
   }
 
-  addGame(String gameName, int discount) {
-    _gamesMap[gameName] = discount;
-  }
-
-  removeGame(String gameName) {
-    _gamesMap.remove(gameName);
-  }
-
-  changeDiscountLevelOfGame(String gameName, int discount) {
-    addGame(gameName, discount);
-  }
-
   String toString() {
     return _informationMap["username"] + " - " + _informationMap["password"] + " - " + _informationMap["email"] + " - ";
+  }
+
+  void addGameToUser(String gameName, int discountAmount) {
+    _server.addGameToUser(this, gameName, discountAmount);
+  }
+
+  void removeGameFromUser(String gameName) {
+    _server.removeGameFromUser(this, gameName);
+  }
+
+  void changeDiscountOfGame(String gameName, int discountAmount) {
+    _server.addGameToUser(this, gameName, discountAmount);
+  }
+
+  List<SteamGame> getAllGames() {
+    return _server.getUsersGames(this);
   }
 }

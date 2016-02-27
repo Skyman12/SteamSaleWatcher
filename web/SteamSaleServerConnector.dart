@@ -4,12 +4,8 @@ import 'dart:async';
 import 'User.dart';
 import 'SteamGame.dart';
 
-class SteamSaleServer {
+class SteamSaleServerConnector {
   var host = "127.0.0.1:8081";
-
-  SteamSaleServer() {
-
-  }
 
   Future<Map<String, SteamGame>> getCurrentGameData() async {
     Map<String, int> map = new Map();
@@ -62,8 +58,25 @@ class SteamSaleServer {
   }
 
   addGameToUser(User user, String gameName, int discountAmount) {
-    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=addGameToUser&gameName=" + gameName + "disountAmount=" + discountAmount.toString();
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=addGameToUser&gameName=" + gameName + "discountAmount=" + discountAmount.toString() + "&username="
+    + user.getUsername();
     HttpRequest.getString(appIDsURL);
+  }
+
+  removeGameFromUser(User user, String gameName) {
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=removeGameFromUser&gameName=" + gameName + "&username=" + user.getUsername();
+    HttpRequest.getString(appIDsURL);
+  }
+
+  Future<List<SteamGame>> getUsersGames(User user) async {
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=getUser&username=" + user.getUsername();
+    Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
+    List gameList = new List();
+    for (String s in data["gameList"].keys) {
+      gameList.add(new SteamGame(s, data["gameList"][s]));
+    }
+
+    return gameList;
   }
 
   Future<List<User>> getAllUsers() async {

@@ -11,7 +11,7 @@ Map<String, SteamGame> onSaleGames;
 List<SteamGame> onSaleList;
 
 main() async {
-  SteamSaleServer server = new SteamSaleServer();
+  SteamSaleServerConnector server = new SteamSaleServerConnector();
 
   onSaleGames = await server.getOnSaleGames();
 
