@@ -12,12 +12,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="scaffolded-by" content="https://github.com/google/stagehand">
 
-    <title>Home</title>
+    <title>Current Sales</title>
     <link rel="stylesheet" href="packages/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="packages/bootstrap/css/bootstrap-theme.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-    <script defer src="main.dart" type="application/dart"></script>
+    <script defer src="currentSales.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 
     <!-- include the javascript -->
@@ -38,8 +38,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="currentSales.html">Current Sales</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li class=active"><a href="#">Current Sales</a></li>
                 <li><a href="#">My Watchlist</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
@@ -50,30 +50,31 @@
     </div>
 </nav>
 
-  <div id="output"></div>
-  <div class="container">
-      <div class="jumbotron">
-          <h1>My First Bootstrap Page</h1>
-          <p>Resize this responsive page to see the effect!</p>
-      </div>
-      <div class="row">
-          <div class="col-sm-4">
-              <h3>Column 1</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-          </div>
-          <div class="col-sm-4">
-              <h3>Column 2</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-          </div>
-          <div class="col-sm-4">
-              <h3>Column 3</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
-          </div>
-      </div>
-  </div>
 
 </body>
+
+<div style="text-align: center">
+    <table style="width:100%" id="sorting-table" >
+        <tr>
+            <td>
+                Sort by:
+                <select id="sortingType">
+                    <option>Discount Percent</option>
+                    <option>Game Name</option>
+                    <option>Initial Price</option>
+                    <option>Final Price</option>
+                </select>
+            </td>
+    </table>
+</div>
+<div style="text-align: center" id="sale-container">
+    <table class="text-center" style="width:50%" id="sale-table">
+        <tr bgcolor="#FFFF00">
+            <th style="text-align: center">Game Name</th>
+            <th style="text-align: center">Discount Percent </th>
+            <th style="text-align: center">Initial Price</th>
+            <th style="text-align: center">Final Price</th>
+        </tr>
+    </table>
+</div>
 </html>

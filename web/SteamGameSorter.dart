@@ -9,7 +9,7 @@ class SteamGameSorter {
       list.add(s);
     }
 
-    list.sort((a,b) => _getName(b).compareTo(_getName(a)));
+    list.sort((a,b) => _getName(a).compareTo(_getName(b)));
 
     return list;
   }
@@ -63,7 +63,7 @@ class SteamGameSorter {
   }
 
   static int _getInitialPrice(SteamGame game) {
-    return game.getFinalPrice();
+    return game.getInitialPrice();
   }
 
 
