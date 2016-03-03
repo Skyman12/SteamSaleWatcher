@@ -5,7 +5,7 @@ import 'SteamSaleServerConnector.dart';
 import 'SteamGame.dart';
 import 'SteamGameSorter.dart';
 import 'dart:html';
-import 'SteamSaleDisplayComponent.dart';
+import 'WatchlistDisplayComponent.dart';
 import 'User.dart';
 
 Map<String, SteamGame> allGames;
@@ -29,13 +29,19 @@ main() async {
   allGames = await server.getAllGames();
   onSaleGames = await server.getOnSaleGames();
 
-  onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
+  var loginDiv = querySelector("#loginDiv");
+  loginDiv.setAttribute("class","");
+  var signup = querySelector("#signUp");
+  signup.setAttribute("class","");
+
+  querySelector("#dataloading").style.visibility = "hidden";
+  querySelector("#progressBar").style.visibility = "hidden";
 
   var createAccountButton = querySelector("#createAccount");
   createAccountButton.onClick.listen(createUser);
 
   var loginButton = querySelector("#login");
-  loginButton.onClick.listen(await login);
+  loginButton.onClick.listen(login);
 
   if (currentUser != null) {
     updateCurrentSales();
@@ -62,7 +68,7 @@ updateCurrentSales() async {
   List<SteamGame> usersGames = await server.getUsersGames(currentUser);
 
   for (SteamGame game in usersGames) {
-    element.children.add(SteamSaleDisplayComponent.buildComponent(game));
+    element.children.add(WatchlistDisplayComponent.buildComponent(game, allGames[game.getName()]));
   }
 }
 

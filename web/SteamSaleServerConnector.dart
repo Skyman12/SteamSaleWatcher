@@ -84,10 +84,10 @@ class SteamSaleServerConnector {
     Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
     List gameList = new List();
     for (String s in data["gameList"].keys) {
-      Map newData = new Map();
-      newData["discount_percent"] =  data["gameList"][s];
-      gameList.add(new SteamGame(s, newData));
-    }
+        Map newData = new Map();
+        newData["discount_percent"] = data["gameList"][s];
+        gameList.add(new SteamGame(s, newData));
+      }
 
     return gameList;
   }
