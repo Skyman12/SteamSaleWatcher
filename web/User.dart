@@ -18,7 +18,7 @@ class User {
     _informationMap["email"] = email;
   }
 
-  void _addUser() {
+  void addUser() {
     _server.addUserToDatabase(this);
   }
 
