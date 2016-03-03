@@ -5,9 +5,13 @@ import 'dart:convert';
 String path = "users.json";
 bool loginStatus = false;
 
-Future makeRequest(String name, String password) async {
+//String user = $_POST['username']; //I HATE YOU
+//String pass = $_POST['password']; //YOU TOO
+
+Future makeRequest() async {
+  print("HELP");
   try {
-    processString(await HttpRequest.getString(path), name, password);
+    processString(await HttpRequest.getString(path), user, pass);
   } catch (e) {
     print('Couldn\'t open $path');
   }
@@ -23,6 +27,7 @@ bool processString(String jsonString, String user, String pass) {
     }
   }
 
+   print(loginStatus);
   return loginStatus;
 
 

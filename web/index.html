@@ -20,6 +20,8 @@
     <script defer src="main.dart" type="application/dart"></script>
     <script defer src="packages/browser/dart.js"></script>
 
+    <script src="checkLogin.dart" type="application/dart"></script>
+
     <!-- include the javascript -->
     <script src="packages/bootstrap/js/bootstrap.js"></script>
 </head>
@@ -73,8 +75,33 @@
               <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
           </div>
       </div>
+      <div id="login">
+          <h1>Log In</h1>
+          <form name="login" method="post" accept-charset="utf-8">
+              <ul>
+                  <li><label>User</label>
+                      <input type="text" name="username" placeholder="username" required></li>
+                  <li><label>Password</label>
+                      <input type="password" name="password" placeholder="password" required></li>
+                      <input type="submit" value="Login" onclick="makeRequest()"></li>
+              </ul>
+          </form>
+      </div>
 
-
+      <div id="signUp">
+          <h1>Create An Account</h1>
+          <form name="login" method="post" accept-charset="utf-8">
+              <ul>
+                  <li><label>User</label>
+                      <input type="text" name="username" placeholder="username" required></li>
+                  <li><label>Password</label>
+                      <input type="password" name="password" placeholder="password" required></li>
+                  <li><label>Email</label>
+                      <input type="email" name="email" placeholder="youremail@site.com" required></li>
+                      <input type="submit" value="Login"></li>
+              </ul>
+          </form>
+      </div>
   </div>
 
 </body>
