@@ -85,7 +85,7 @@ class SteamSaleServerConnector {
     List gameList = new List();
     for (String s in data["gameList"].keys) {
         Map newData = new Map();
-        newData["discount_percent"] = data["gameList"][s];
+        newData["discount_percent"] = int.parse(data["gameList"][s]);
         gameList.add(new SteamGame(s, newData));
       }
 

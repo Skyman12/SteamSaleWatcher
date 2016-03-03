@@ -137,13 +137,14 @@ void addGame([Event e]) {
   var discount = querySelector("#discountSelection");
 
   currentUser.addGameToUser(game.children.elementAt(game.selectedIndex).text, int.parse(discount.children.elementAt(discount.selectedIndex).text));
+  updateCurrentSales();
 }
 
 void removeGame([Event e]) {
   var game = querySelector("#gamesListSelection");
-  var discount = querySelector("#discountSelection");
 
   currentUser.removeGameFromUser(game.children.elementAt(game.selectedIndex).text);
+  updateCurrentSales();
 }
 
 void updatePrice([Event e]) {
@@ -151,6 +152,7 @@ void updatePrice([Event e]) {
   var discount = querySelector("#discountSelection");
 
   currentUser.changeDiscountOfGame(game.children.elementAt(game.selectedIndex).text, int.parse(discount.children.elementAt(discount.selectedIndex).text));
+  updateCurrentSales();
 }
 
 login([Event e]) async {

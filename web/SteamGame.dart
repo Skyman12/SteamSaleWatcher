@@ -17,7 +17,7 @@ class SteamGame {
   }
 
   int getDiscountPercent() {
-    return _data["discount_percent"];
+   return _data["discount_percent"];
   }
 
   String getName()
