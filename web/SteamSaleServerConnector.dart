@@ -69,7 +69,7 @@ class SteamSaleServerConnector {
   }
 
   addGameToUser(User user, String gameName, int discountAmount) {
-    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=addGameToUser&gameName=" + gameName + "discountAmount=" + discountAmount.toString() + "&username="
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=addGameToUser&gameName=" + gameName + "&discountAmount=" + discountAmount.toString() + "&username="
     + user.getUsername();
     HttpRequest.getString(appIDsURL);
   }

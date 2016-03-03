@@ -29,6 +29,9 @@ main() async {
   allGames = await server.getAllGames();
   onSaleGames = await server.getOnSaleGames();
 
+  addGamesToSelector();
+  addDiscountsToSelector();
+
   var loginDiv = querySelector("#loginDiv");
   loginDiv.setAttribute("class","");
   var signup = querySelector("#signUp");
@@ -43,11 +46,39 @@ main() async {
   var loginButton = querySelector("#login");
   loginButton.onClick.listen(login);
 
+  var addButton = querySelector("#add");
+  addButton.onClick.listen(addGame);
+
+  var removeButton = querySelector("#remove");
+  removeButton.onClick.listen(removeGame);
+
+  var updateButton = querySelector("#update");
+  updateButton.onClick.listen(updatePrice);
+
   if (currentUser != null) {
     updateCurrentSales();
   }
 
 
+}
+
+addGamesToSelector() {
+  var watchlistData = querySelector("#gamesListSelection");
+  List<SteamGame> sorted = SteamGameSorter.sortByName(allGames);
+  for ( SteamGame s in sorted) {
+    OptionElement element = new OptionElement();
+    element.text = s.getName();
+    watchlistData.children.add(element);
+  }
+}
+
+addDiscountsToSelector() {
+  var discount = querySelector("#discountSelection");
+  for (int i = 0; i < 100; i++) {
+    OptionElement element = new OptionElement();
+    element.text = i.toString();
+    discount.children.add(element);
+  }
 }
 
 updateCurrentSales() async {
@@ -99,6 +130,27 @@ void createUser([Event e]) {
     User newUser = new User(createUsername.value, createPassword.value, createEmail.value);
     newUser.addUser();
   }
+}
+
+void addGame([Event e]) {
+  var game = querySelector("#gamesListSelection");
+  var discount = querySelector("#discountSelection");
+
+  currentUser.addGameToUser(game.children.elementAt(game.selectedIndex).text, int.parse(discount.children.elementAt(discount.selectedIndex).text));
+}
+
+void removeGame([Event e]) {
+  var game = querySelector("#gamesListSelection");
+  var discount = querySelector("#discountSelection");
+
+  currentUser.removeGameFromUser(game.children.elementAt(game.selectedIndex).text);
+}
+
+void updatePrice([Event e]) {
+  var game = querySelector("#gamesListSelection");
+  var discount = querySelector("#discountSelection");
+
+  currentUser.changeDiscountOfGame(game.children.elementAt(game.selectedIndex).text, int.parse(discount.children.elementAt(discount.selectedIndex).text));
 }
 
 login([Event e]) async {
