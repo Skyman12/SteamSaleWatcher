@@ -37,6 +37,17 @@ class SteamSaleServerConnector {
     return onSaleGames;
   }
 
+  Future<Map<String, SteamGame>> getAllGames() async {
+    Map<String, SteamGame> gameMap = await getCurrentGameData();
+    Map<String, SteamGame> games = new Map();
+
+    for (String k in gameMap.keys) {
+      games[k] = gameMap[k];
+    }
+
+    return games;
+  }
+
   updateGameList() {
     var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=buildSteamSaleInformation";
 
@@ -73,7 +84,9 @@ class SteamSaleServerConnector {
     Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
     List gameList = new List();
     for (String s in data["gameList"].keys) {
-      gameList.add(new SteamGame(s, data["gameList"][s]));
+      Map newData = new Map();
+      newData["discount_percent"] =  data["gameList"][s];
+      gameList.add(new SteamGame(s, newData));
     }
 
     return gameList;
@@ -94,5 +107,15 @@ class SteamSaleServerConnector {
 
     return list;
   }
+
+  Future<User> getUser(String username) async {
+    var appIDsURL = "http://localhost:8081/SteamSaleServer/SteamSaleServer.php?action=getUser&username=" + username;
+
+    // call the web server
+    Map data = await HttpRequest.getString(appIDsURL).then(_onDataLoaded);
+
+    return new User(data["username"], data["password"], data["email"]);
+  }
+
 
 }

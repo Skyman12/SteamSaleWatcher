@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<!--
+  Copyright (c) 2016, <your name>. All rights reserved. Use of this source code
+  is governed by a BSD-style license that can be found in the LICENSE file.
+-->
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="scaffolded-by" content="https://github.com/google/stagehand">
+
+    <title>My Watchlist</title>
+    <link rel="stylesheet" href="packages/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="packages/bootstrap/css/bootstrap-theme.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script defer src="myWatchlist.dart" type="application/dart"></script>
+    <script defer src="packages/browser/dart.js"></script>
+
+    <!-- include the javascript -->
+    <script src="packages/bootstrap/js/bootstrap.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Logo</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="currentSales.html">Current Sales</a></li>
+                <li  class="active"><a href="myWatchlist.html">My Watchlist</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div id="loginDiv">
+    <h1>Log In</h1>
+    <ul>
+        <li><label>User</label>
+            <input type="text" id="username" placeholder="username" required></li>
+        <li><label>Password</label>
+            <input type="password" id="password" placeholder="password" required></li>
+        <input type="submit" value="Login" id="login">
+    </ul>
+</div>
+
+<div id="signUp">
+    <h1>Create An Account</h1>
+        <ul>
+            <li><label>User</label>
+                <input type="text" id="createUsername" placeholder="username" required></li>
+            <li><label>Password</label>
+                <input type="password" id="createPassword" placeholder="password" required></li>
+            <li><label>Email</label>
+                <input type="email" id="createEmail" placeholder="youremail@site.com" required></li>
+            <input type="submit" value="Create Account" id="createAccount">
+        </ul>
+</div>
+
+<div id = "watchlistData">
+    <div style="text-align: center">
+        <table style="width:100%" id="sorting-table" >
+            <tr>
+                <td>
+                    Sort by:
+                    <select id="sortingType">
+                        <option>Discount Percent</option>
+                        <option>Game Name</option>
+                        <option>Initial Price</option>
+                        <option>Final Price</option>
+                    </select>
+                </td>
+        </table>
+        </div>
+        <div style="text-align: center" id="sale-container">
+        <table class="text-center" style="width:50%" id="sale-table">
+            <tr bgcolor="#FFFF00">
+                <th style="text-align: center">Game Name</th>
+                <th style="text-align: center">Discount Percent </th>
+                <th style="text-align: center">Initial Price</th>
+                <th style="text-align: center">Final Price</th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
