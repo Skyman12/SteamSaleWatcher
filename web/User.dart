@@ -16,7 +16,6 @@ class User {
     _informationMap["username"] = username;
     _informationMap["password"] = password;
     _informationMap["email"] = email;
-    _addUser();
   }
 
   void _addUser() {
