@@ -50,7 +50,7 @@ class User {
     _server.addGameToUser(this, gameName, discountAmount);
   }
 
-  List<SteamGame> getAllGames() {
+  Future<List<SteamGame>> getAllGames() {
     return _server.getUsersGames(this);
   }
 }
