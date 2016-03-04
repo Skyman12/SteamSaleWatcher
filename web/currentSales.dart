@@ -14,6 +14,17 @@ List<SteamGame> onSaleList;
 main() async {
 
   nightlyUpdate(const Duration(days: 1), 7); //Will only run once a day for the next week
+
+  SteamSaleServerConnector server = new SteamSaleServerConnector();
+
+  onSaleGames = await server.getOnSaleGames();
+
+  onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
+
+  var sortingType = querySelector("#sortingType");
+  sortingType.onChange.listen(updateListWithSort);
+
+  updateCurrentSales();
 }
 
 Future nightlyUpdate(Duration interval, int maxCount) async {
@@ -34,7 +45,6 @@ Future nightlyUpdate(Duration interval, int maxCount) async {
 
     if (counter >= maxCount) {
       timer.cancel(); //have it only run X times
-
     }
 
   }
@@ -53,6 +63,10 @@ void updateCurrentSales() {
   for (SteamGame game in onSaleList) {
     element.children.add(SteamSaleDisplayComponent.buildComponent(game));
   }
+
+  querySelector("#dataloading").style.visibility = "hidden";
+  querySelector("#progressBar").style.visibility = "hidden";
+
 }
 
 void updateListWithSort([Event e]) {

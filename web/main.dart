@@ -6,15 +6,14 @@ import 'SteamSaleServerConnector.dart';
 import 'User.dart';
 import 'SteamGameSorter.dart';
 import 'dart:math';
+import 'SteamGame.dart';
 
 
 Map<String, SteamGame> onSaleGames;
 List<SteamGame> onSaleList;
 
 main() async {
-  querySelector('#output').text = 'Your Dart app is running.';
   SteamSaleServerConnector server = new SteamSaleServerConnector();
-  server.addUserToDatabase(new User("Test", "Test" , "Test"));
 
   onSaleGames = await server.getOnSaleGames();
   onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
