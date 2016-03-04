@@ -6,22 +6,42 @@ import 'SteamGame.dart';
 import 'SteamGameSorter.dart';
 import 'dart:html';
 import 'SteamSaleDisplayComponent.dart';
+import 'dart:async';
 
 Map<String, SteamGame> onSaleGames;
 List<SteamGame> onSaleList;
 
 main() async {
-  SteamSaleServerConnector server = new SteamSaleServerConnector();
 
-  onSaleGames = await server.getOnSaleGames();
-
-  onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
-
-  var sortingType = querySelector("#sortingType");
-  sortingType.onChange.listen(updateListWithSort);
-
-  updateCurrentSales();
+  nightlyUpdate(const Duration(days: 1), 7); //Will only run once a day for the next week
 }
+
+Future nightlyUpdate(Duration interval, int maxCount) async {
+
+  int counter = 0;
+
+  Future update(Timer timer) async {
+    SteamSaleServerConnector server = new SteamSaleServerConnector();
+
+    onSaleGames = await server.getOnSaleGames();
+
+    onSaleList = SteamGameSorter.sortByDiscountPercent(onSaleGames);
+
+    var sortingType = querySelector("#sortingType");
+    sortingType.onChange.listen(updateListWithSort);
+
+    updateCurrentSales();
+
+    if (counter >= maxCount) {
+      timer.cancel(); //have it only run X times
+
+    }
+
+  }
+
+  new Timer.periodic(interval, update); //runs above every X interval
+}
+
 
 void updateCurrentSales() {
   var element = querySelector('#sale-table');
