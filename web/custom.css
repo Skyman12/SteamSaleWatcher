@@ -4,6 +4,14 @@ h1 {
     line-height: 100px;
 }
 
+h1.carousel {
+    font-family: 'Lobster', Georgia, Times, serif;
+    font-size: 70px;
+    line-height: 100px;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
 p {
     font-family: 'Cabin', Helvetica, Arial, sans-serif;
     font-size: 15px;

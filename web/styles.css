@@ -7,3 +7,15 @@ html, body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
+
+h1 {
+    font-family: 'Lobster', Georgia, Times, serif;
+    font-size: 70px;
+    line-height: 100px;
+}
+
+p {
+    font-family: 'Cabin', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 25px;
+}
